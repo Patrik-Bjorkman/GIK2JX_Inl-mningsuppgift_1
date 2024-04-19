@@ -2,7 +2,7 @@ mymap = window.mymap;
 
 var polyPointA = [60.73059328557813, 15.001003359666047];
 var polyPointB = [60.83059328557813, 15.001003359666047];
-var polyPointC = [60.93059328557813, 15.001003359666047];
+var polyPointC = [60.73398607788189, 14.98092127739745];
 var polyPointD = [60.03059328557813, 15.001003359666047];
 var polyPointE = [60.13059328557813, 15.001003359666047];
 
@@ -18,7 +18,7 @@ polyPointB.bindPopup(
 
 polyPointC = L.marker(polyPointC);
 polyPointC.bindPopup(
-  "<h5>Kutyrtyn</h5><img src='../static/img/kupolen.png'width='300px'><p>Borlänge största köpcentrum, Kupolen! Hit reser folk land och rike runt för att shoppa loss.</p>"
+  "<h5>Hildaholm</h5><img src='../static/img/hildaholm.png'width='300px'><p>Turistattraktion, byggdes 1910 för den berömde läkaren och författaren Axel Munthe och hans engelska fru Hilda Pennington Mellor. .</p><p>Öppettider: 1 juni - 31 augusti, tisdag - söndag 11.00 - 16.00</p><p>Besöksadress: Klockaregatan 5, 793 31 Leksand</p>"
 );
 
 polyPointD = L.marker(polyPointD);
