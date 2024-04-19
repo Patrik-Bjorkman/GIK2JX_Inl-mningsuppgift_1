@@ -5,8 +5,6 @@ var supermarketLayer = L.geoJson(supermarket);
 supermarketLayer = L.geoJSON(supermarket, {
   onEachFeature: function (feature, layer) {
     layer.bindPopup(feature.properties.name);
-    var buffered = turf.buffer(layer.toGeoJSON(), 1, { units: "kilometers" });
-    L.geoJSON(buffered).addTo(mymap);
   },
 });
 
