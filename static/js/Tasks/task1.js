@@ -24,16 +24,16 @@ var polyLineI = [60.4873275823478, 15.40399734539099];
 var polyLineJ = [60.4871453044957, 15.404400255061688];
 
 var polyLineList = [
-  polyLineA,
-  polyLineB,
-  polyLineC,
-  polyLineD,
-  polyLineE,
-  polyLineF,
-  polyLineG,
-  polyLineH,
-  polyLineI,
-  polyLineJ,
+	polyLineA,
+	polyLineB,
+	polyLineC,
+	polyLineD,
+	polyLineE,
+	polyLineF,
+	polyLineG,
+	polyLineH,
+	polyLineI,
+	polyLineJ,
 ];
 
 var polygonA = [60.48568639897627, 15.410386745652886];
@@ -52,62 +52,62 @@ mymap = window.mymap;
 
 polyPointKupolen = L.marker(polyPointKupolen);
 polyPointKupolen.bindPopup(
-  "<h5>Kupolen</h5><img src='../static/img/kupolen.png'width='300px'><p>Borlänge största köpcentrum, Kupolen! Hit reser folk land och rike runt för att shoppa loss.</p>"
+	"<h5>Kupolen</h5><img src='../static/img/kupolen.png'width='300px'><p>Borlänge största köpcentrum, Kupolen! Hit reser folk land och rike runt för att shoppa loss.</p>"
 );
 
 var polyLine = L.polyline(polyLineList, {
-  color: "red",
-  weight: 3,
-  opacity: 0.8,
-  smoothFactor: 1,
+	color: 'red',
+	weight: 3,
+	opacity: 0.8,
+	smoothFactor: 1,
 });
 
 var markerA = L.marker(polyLineE);
 markerA.bindPopup(
-  "<h5>Röda vägen</h5><img src='../static/img/roda_vagen.png'width='300px'><p>Röda vägen i Borlänge vid Högskolan Dalarna och Trafikverket, vägen ligger i området Dalarna Science Park</p>"
+	"<h5>Röda vägen</h5><img src='../static/img/roda_vagen.png'width='300px'><p>Röda vägen i Borlänge vid Högskolan Dalarna och Trafikverket, vägen ligger i området Dalarna Science Park</p>"
 );
 
 var polygon = L.polygon(
-  [
-    polygonA,
-    polygonB,
-    polygonC,
-    polygonD,
-    polygonE,
-    polygonF,
-    polygonG,
-    polygonH,
-    polygonI,
-  ],
-  {
-    color: "blue",
-    weight: 3,
-    opacity: 0.8,
-    fillColor: "blue",
-    fillOpacity: 0.2,
-  }
+	[
+		polygonA,
+		polygonB,
+		polygonC,
+		polygonD,
+		polygonE,
+		polygonF,
+		polygonG,
+		polygonH,
+		polygonI,
+	],
+	{
+		color: 'blue',
+		weight: 3,
+		opacity: 0.8,
+		fillColor: 'blue',
+		fillOpacity: 0.2,
+	}
 );
 
 var polymarker = L.marker(polygonPoint);
 polymarker.bindPopup(
-  "<h5>Börje Anderssons Park</h5><img src='../static/img/borje_anderssons_park.png'width='300px'><p>I Börje Anderssons park hittar du fina grönytor, här kan ni samlas för att njuta av solen eller varje inte grilla tillsammans en fin sommarkväll. När man vill ägna sig åt lite lungare aktiviterer så kan man spela lite boule på den fina bouleplanen.</p>"
+	"<h5>Börje Anderssons Park</h5><img src='../static/img/borje_anderssons_park.png'width='300px'><p>I Börje Anderssons park hittar du fina grönytor, här kan ni samlas för att njuta av solen eller varje inte grilla tillsammans en fin sommarkväll. När man vill ägna sig åt lite lungare aktiviterer så kan man spela lite boule på den fina bouleplanen.</p>"
 );
 
-btnTask1 = document.getElementById("btnTask1");
+btnTask1 = document.getElementById('btnTask1');
 
-btnTask1.addEventListener("click", function () {
-  if (mymap.hasLayer(polyLine)) {
-    mymap.removeLayer(polyLine);
-    mymap.removeLayer(polyPointKupolen);
-    mymap.removeLayer(markerA);
-    mymap.removeLayer(polygon);
-    mymap.removeLayer(polymarker);
-  } else {
-    mymap.setView([60.48502084964875, 15.410541924480299], 13)
-    polyLine.addTo(mymap);
-    polyPointKupolen.addTo(mymap);
-    markerA.addTo(mymap);
-    polygon.addTo(mymap);
-    polymarker.addTo(mymap);
-  }
+btnTask1.addEventListener('click', function () {
+	if (mymap.hasLayer(polyLine)) {
+		mymap.removeLayer(polyLine);
+		mymap.removeLayer(polyPointKupolen);
+		mymap.removeLayer(markerA);
+		mymap.removeLayer(polygon);
+		mymap.removeLayer(polymarker);
+	} else {
+		mymap.setView([60.48502084964875, 15.410541924480299], 15);
+		polyLine.addTo(mymap);
+		polyPointKupolen.addTo(mymap);
+		markerA.addTo(mymap);
+		polygon.addTo(mymap);
+		polymarker.addTo(mymap);
+	}
 });
