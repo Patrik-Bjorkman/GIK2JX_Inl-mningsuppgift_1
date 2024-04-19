@@ -10,8 +10,8 @@ var imageUrl = '../static/img/rommetravbana.png',
 
 var showImage = L.imageOverlay(imageUrl, imageBounds);
 
-btnTask3 = document.getElementById('btnTask4');
-btnTask3.addEventListener('click', function () {
+btnTask4 = document.getElementById('btnTask4');
+btnTask4.addEventListener('click', function () {
 	if (mymap.hasLayer(showImage)) {
 		mymap.removeLayer(showImage);
 	} else {
