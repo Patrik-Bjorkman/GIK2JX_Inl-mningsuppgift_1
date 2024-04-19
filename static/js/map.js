@@ -7,3 +7,5 @@ lyrOSM = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
 mymap.addLayer(lyrOSM);
 
 L.control.polylineMeasure().addTo(mymap);
+var sidebar = L.control.sidebar('sidebar', {position: 'left'});
+mymap.addControl(sidebar);

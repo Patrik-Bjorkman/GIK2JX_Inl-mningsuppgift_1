@@ -1,7 +1,7 @@
 var mymap;
 var lyrOSM;
 
-var polyPointA = [60.484235085475206, 15.417972001328266];
+var polyPointKupolen = [60.484235085475206, 15.417972001328266];
 
 var polyLineA = [60.486339219045306, 15.411463508264603];
 
@@ -50,8 +50,8 @@ var polygonPoint = [60.48502084964875, 15.410541924480299];
 
 mymap = window.mymap;
 
-polyPointA = L.marker(polyPointA);
-polyPointA.bindPopup(
+polyPointKupolen = L.marker(polyPointKupolen);
+polyPointKupolen.bindPopup(
   "<h5>Kupolen</h5><img src='../static/img/kupolen.png'width='300px'><p>Borlänge största köpcentrum, Kupolen! Hit reser folk land och rike runt för att shoppa loss.</p>"
 );
 
@@ -96,16 +96,16 @@ polymarker.bindPopup(
 btnTask1 = document.getElementById("btnTask1");
 
 btnTask1.addEventListener("click", function () {
-  mymap.setView([60.48502084964875, 15.410541924480299], 15)
-  if (polyLine && mymap.hasLayer(polyLine)) {
+  if (mymap.hasLayer(polyLine)) {
     mymap.removeLayer(polyLine);
-    mymap.removeLayer(polyPointA);
+    mymap.removeLayer(polyPointKupolen);
     mymap.removeLayer(markerA);
     mymap.removeLayer(polygon);
     mymap.removeLayer(polymarker);
   } else {
+    mymap.setView([60.48502084964875, 15.410541924480299], 13)
     polyLine.addTo(mymap);
-    polyPointA.addTo(mymap);
+    polyPointKupolen.addTo(mymap);
     markerA.addTo(mymap);
     polygon.addTo(mymap);
     polymarker.addTo(mymap);
