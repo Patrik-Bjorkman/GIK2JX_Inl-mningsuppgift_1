@@ -1,5 +1,7 @@
 mymap = window.mymap;
 
+
+
 var imageUrl = '../static/img/rommetravbana.png',
 	imageBounds = [
 		[60.45026842668581, 15.501139923305422],
@@ -18,4 +20,7 @@ btnTask4.addEventListener('click', function () {
 		showImage.addTo(mymap);
 		mymap.setView([60.449031475421464, 15.49492387637925], 16);
 	}
+
 });
+
+
