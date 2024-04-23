@@ -89,6 +89,10 @@
       defer
       src="{{ url_for('static', filename='../static/js/Tasks/task6.js') }}"
     ></script>
+    <script
+      defer
+      src="{{ url_for('static', filename='../static/js/Tasks/task7.js') }}"
+    ></script>
   </head>
   <body>
     <div id="mymap" class="col-9"></div>
@@ -101,6 +105,9 @@
       <button id="btnTask4">Task 4</button>
       <button id="btnTask5">Task 5</button>
       <button id="btnTask6">Task 6</button>
+      <button id="btnTask7">Task 7</button>
+      <!-- <button onclick="callPythonFunction()">Call Python Function</button> -->
+      <div id="result"></div>
     </div>
     <div id="sidebar"></div>
   </body>

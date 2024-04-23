@@ -40,19 +40,25 @@ var weatherApiUrlBorlänge =
   "https://api.open-meteo.com/v1/forecast?latitude=60.4858&longitude=15.4371&minutely_15=temperature_2m,precipitation,sunshine_duration&hourly=temperature_2m,precipitation&timezone=CET";
 var weatherApiUrlNY =
   "https://api.open-meteo.com/v1/forecast?latitude=40.7239&longitude=-73.9989&minutely_15=temperature_2m,precipitation,sunshine_duration&hourly=temperature_2m,precipitation&timezone=CET";
-var weatherApiUrlKyoto = "https://api.open-meteo.com/v1/forecast?latitude=35.0168&longitude=135.7600&minutely_15=temperature_2m,precipitation,sunshine_duration&hourly=temperature_2m,precipitation&timezone=CET"
-var weatherApiUrlLondon = "https://api.open-meteo.com/v1/forecast?latitude=51.5071&longitude=-0.1256&minutely_15=temperature_2m,precipitation,sunshine_duration&hourly=temperature_2m,precipitation&timezone=CET"
+var weatherApiUrlKyoto =
+  "https://api.open-meteo.com/v1/forecast?latitude=35.0168&longitude=135.7600&minutely_15=temperature_2m,precipitation,sunshine_duration&hourly=temperature_2m,precipitation&timezone=CET";
+var weatherApiUrlLondon =
+  "https://api.open-meteo.com/v1/forecast?latitude=51.5071&longitude=-0.1256&minutely_15=temperature_2m,precipitation,sunshine_duration&hourly=temperature_2m,precipitation&timezone=CET";
+var weatherApiUrlRome =
+  "https://api.open-meteo.com/v1/forecast?latitude=41.8972&longitude=12.4865&minutely_15=temperature_2m,precipitation,sunshine_duration&hourly=temperature_2m,precipitation&timezone=CET";
 
 var pointBorlänge = [60.4858, 15.437];
 var pointNY = [40.7239, -73.9989];
-var pointKyoto = [35.0168, 135.7600]
-var pointLondon = [51.5071, -0.1256]
+var pointKyoto = [35.0168, 135.76];
+var pointLondon = [51.5071, -0.1256];
+var pointRome = [41.8972, 12.4865];
 
 // Initialize the marker without binding a popup yet
 var markerBorlänge = L.marker(pointBorlänge);
 var markerNY = L.marker(pointNY);
-var markerKyoto = L.marker(pointKyoto)
-var markerLondon = L.marker(pointLondon)
+var markerKyoto = L.marker(pointKyoto);
+var markerLondon = L.marker(pointLondon);
+var markerRome = L.marker(pointRome);
 
 // Event listener for marker click
 markerBorlänge.on("click", function () {
@@ -114,62 +120,91 @@ markerNY.on("click", function () {
 });
 
 markerKyoto.on("click", function () {
-	fetch(weatherApiUrlKyoto)
-	  .then((response) => response.json())
-	  .then((data) => {
-		var currentTime = getTime();
-		var currentIndex = data.minutely_15.time.indexOf(currentTime);
-		var content = `
+  fetch(weatherApiUrlKyoto)
+    .then((response) => response.json())
+    .then((data) => {
+      var currentTime = getTime();
+      var currentIndex = data.minutely_15.time.indexOf(currentTime);
+      var content = `
 				  <h5>Väder Kyoto</h5>
 				  <p>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</p>
 				  <p>Time: ${data.minutely_15.time[currentIndex]}</p>
 				  <p>Precipitation: ${data.hourly.precipitation[currentIndex]}mm</p>
 				  <p>Sunshine Duration: ${data.minutely_15.sunshine_duration[currentIndex]} seconds</p>
 			  `;
-		// Update sidebar and popup content
-		document.getElementById("sidebar").innerHTML = content;
-		sidebar.show(); // Ensure sidebar is visible
-		markerKyoto.setPopupContent(content); // Update popup content dynamically
-		markerKyoto.openPopup(); // Automatically open the updated popup
-	  })
-	  .catch((error) => {
-		console.error("Error fetching weather data:", error);
-		var errorContent = "<p>Error fetching weather data.</p>";
-		document.getElementById("sidebar").innerHTML = errorContent;
-		sidebar.show();
-		markerKyoto.setPopupContent(errorContent);
-		markerKyoto.openPopup();
-	  });
-  });
+      // Update sidebar and popup content
+      document.getElementById("sidebar").innerHTML = content;
+      sidebar.show(); // Ensure sidebar is visible
+      markerKyoto.setPopupContent(content); // Update popup content dynamically
+      markerKyoto.openPopup(); // Automatically open the updated popup
+    })
+    .catch((error) => {
+      console.error("Error fetching weather data:", error);
+      var errorContent = "<p>Error fetching weather data.</p>";
+      document.getElementById("sidebar").innerHTML = errorContent;
+      sidebar.show();
+      markerKyoto.setPopupContent(errorContent);
+      markerKyoto.openPopup();
+    });
+});
 
-  markerLondon.on("click", function () {
-	fetch(weatherApiUrlLondon)
-	  .then((response) => response.json())
-	  .then((data) => {
-		var currentTime = getTime();
-		var currentIndex = data.minutely_15.time.indexOf(currentTime);
-		var content = `
+markerLondon.on("click", function () {
+  fetch(weatherApiUrlLondon)
+    .then((response) => response.json())
+    .then((data) => {
+      var currentTime = getTime();
+      var currentIndex = data.minutely_15.time.indexOf(currentTime);
+      var content = `
 				  <h5>Väder London</h5>
 				  <p>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</p>
 				  <p>Time: ${data.minutely_15.time[currentIndex]}</p>
 				  <p>Precipitation: ${data.hourly.precipitation[currentIndex]}mm</p>
 				  <p>Sunshine Duration: ${data.minutely_15.sunshine_duration[currentIndex]} seconds</p>
 			  `;
-		// Update sidebar and popup content
-		document.getElementById("sidebar").innerHTML = content;
-		sidebar.show(); // Ensure sidebar is visible
-		markerLondon.setPopupContent(content); // Update popup content dynamically
-		markerLondon.openPopup(); // Automatically open the updated popup
-	  })
-	  .catch((error) => {
-		console.error("Error fetching weather data:", error);
-		var errorContent = "<p>Error fetching weather data.</p>";
-		document.getElementById("sidebar").innerHTML = errorContent;
-		sidebar.show();
-		markerLondon.setPopupContent(errorContent);
-		markerLondon.openPopup();
-	  });
-  });
+      // Update sidebar and popup content
+      document.getElementById("sidebar").innerHTML = content;
+      sidebar.show(); // Ensure sidebar is visible
+      markerLondon.setPopupContent(content); // Update popup content dynamically
+      markerLondon.openPopup(); // Automatically open the updated popup
+    })
+    .catch((error) => {
+      console.error("Error fetching weather data:", error);
+      var errorContent = "<p>Error fetching weather data.</p>";
+      document.getElementById("sidebar").innerHTML = errorContent;
+      sidebar.show();
+      markerLondon.setPopupContent(errorContent);
+      markerLondon.openPopup();
+    });
+});
+
+markerRome.on("click", function () {
+  fetch(weatherApiUrlRome)
+    .then((response) => response.json())
+    .then((data) => {
+      var currentTime = getTime();
+      var currentIndex = data.minutely_15.time.indexOf(currentTime);
+      var content = `
+					<h5>Väder Rom</h5>
+					<p>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</p>
+					<p>Time: ${data.minutely_15.time[currentIndex]}</p>
+					<p>Precipitation: ${data.hourly.precipitation[currentIndex]}mm</p>
+					<p>Sunshine Duration: ${data.minutely_15.sunshine_duration[currentIndex]} seconds</p>
+				`;
+      // Update sidebar and popup content
+      document.getElementById("sidebar").innerHTML = content;
+      sidebar.show(); // Ensure sidebar is visible
+      markerRome.setPopupContent(content); // Update popup content dynamically
+      markerRome.openPopup(); // Automatically open the updated popup
+    })
+    .catch((error) => {
+      console.error("Error fetching weather data:", error);
+      var errorContent = "<p>Error fetching weather data.</p>";
+      document.getElementById("sidebar").innerHTML = errorContent;
+      sidebar.show();
+      markerRome.setPopupContent(errorContent);
+      markerRome.openPopup();
+    });
+});
 
 // Button to toggle the marker on the map
 var btnTask6 = document.getElementById("btnTask6");
@@ -177,12 +212,14 @@ btnTask6.addEventListener("click", function () {
   if (mymap.hasLayer(markerBorlänge)) {
     mymap.removeLayer(markerBorlänge);
     mymap.removeLayer(markerNY);
-	mymap.removeLayer(markerKyoto)
-	mymap.removeLayer(markerLondon)
+    mymap.removeLayer(markerKyoto);
+    mymap.removeLayer(markerLondon);
+    mymap.removeLayer(markerRome);
   } else {
     mymap.addLayer(markerBorlänge);
     mymap.addLayer(markerNY);
-	mymap.addLayer(markerKyoto)
-	mymap.addLayer(markerLondon)
+    mymap.addLayer(markerKyoto);
+    mymap.addLayer(markerLondon);
+    mymap.addLayer(markerRome);
   }
 });
