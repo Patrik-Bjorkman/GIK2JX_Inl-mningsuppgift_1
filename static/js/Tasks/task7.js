@@ -51,58 +51,67 @@ var yellowIcon = L.icon({
 });
 
 var markerLayer = L.layerGroup();
+var kmeansLoaded = false;
 
 function callKmeansClustering() {
-  fetch("/api/kmeansClustering")
-    .then((response) => response.json())
-    .then((data) => {
-      var coords = data.result.coords;
-      var labels = data.result.labels;
-      var centers = data.result.cluster_centers;
-      var names = data.result.names;
+  if (!kmeansLoaded) {
+    fetch("/api/kmeansClustering")
+      .then((response) => response.json())
+      .then((data) => {
+        var coords = data.result.coords;
+        var labels = data.result.labels;
+        var centers = data.result.cluster_centers;
+        var names = data.result.names;
 
-      markerLayer.clearLayers();
+        markerLayer.clearLayers();
 
-      for (var i = 0; i < coords.length; i++) {
-        var p = [coords[i][1], coords[i][0]];
-        var marker;
+        for (var i = 0; i < coords.length; i++) {
+          var p = [coords[i][1], coords[i][0]];
+          var marker;
 
-        if (labels[i] == 0) {
-          marker = L.marker(p, { icon: blueIcon });
-        } else if (labels[i] == 1) {
-          marker = L.marker(p, { icon: greenIcon });
-        } else if (labels[i] == 2) {
-          marker = L.marker(p, { icon: redIcon });
-        } else if (labels[i] == 3) {
-          marker = L.marker(p, { icon: purpleIcon });
-        } else if (labels[i] == 4) {
-          marker = L.marker(p, { icon: orangeIcon });
-        } else if (labels[i] == 5) {
-          marker = L.marker(p, { icon: yellowIcon });
-        } else if (labels[i] == 6) {
-          marker = L.marker(p, { icon: pinkIcon });
-        } else {
-          marker = L.marker(p);
+          if (labels[i] == 0) {
+            marker = L.marker(p, { icon: blueIcon });
+          } else if (labels[i] == 1) {
+            marker = L.marker(p, { icon: greenIcon });
+          } else if (labels[i] == 2) {
+            marker = L.marker(p, { icon: redIcon });
+          } else if (labels[i] == 3) {
+            marker = L.marker(p, { icon: purpleIcon });
+          } else if (labels[i] == 4) {
+            marker = L.marker(p, { icon: orangeIcon });
+          } else if (labels[i] == 5) {
+            marker = L.marker(p, { icon: yellowIcon });
+          } else if (labels[i] == 6) {
+            marker = L.marker(p, { icon: pinkIcon });
+          } else {
+            marker = L.marker(p);
+          }
+          marker.bindPopup(`${names[i]}`);
+
+          markerLayer.addLayer(marker);
         }
-        marker.bindPopup(`${names[i]}`);
 
-        markerLayer.addLayer(marker);
-      }
-
-      for (var i = 0; i < centers.length; i++) {
-        var p = [centers[i][1], centers[i][0]];
-        var centerMarker = L.marker(p, { icon: blackIcon });
-        markerLayer.addLayer(centerMarker);
-      }
-    })
-    .catch((error) => {
-      console.error("Error calling Python function:", error);
-    });
+        for (var i = 0; i < centers.length; i++) {
+          var p = [centers[i][1], centers[i][0]];
+          var centerMarker = L.marker(p, { icon: blackIcon });
+          markerLayer.addLayer(centerMarker);
+        }
+        kmeansLoaded = true;
+      })
+      .catch((error) => {
+        console.error("Error calling Python function:", error);
+      });
+  }
 }
+
+var elbowLoaded = false;
+const elbowimg = document.createElement("img");
 
 function callElbowMethod() {
   if (document.getElementById("elbowImg")) {
     document.getElementById("elbowImg").remove();
+  } else if (elbowLoaded) {
+    document.getElementById("result").appendChild(elbowimg);
   } else {
     fetch("/api/elbowMethod")
       .then((response) => {
@@ -113,10 +122,10 @@ function callElbowMethod() {
       })
       .then((blob) => {
         const imgUrl = URL.createObjectURL(blob);
-        const img = document.createElement("img");
-        img.src = imgUrl;
-        img.setAttribute("id", "elbowImg");
-        document.getElementById("result").appendChild(img);
+        elbowimg.src = imgUrl;
+        elbowimg.setAttribute("id", "elbowImg");
+        document.getElementById("result").appendChild(elbowimg);
+        elbowLoaded = true;
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
