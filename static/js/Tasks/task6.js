@@ -1,21 +1,19 @@
 mymap = window.mymap;
 
-function getTime() {
+function getTime(forecast, n) {
   // Get the current date and time
   var currentDate = new Date();
 
   // Extract individual components of the date and time
   var currentYear = currentDate.getFullYear();
-  var currentMonth = currentDate.getMonth() + 1; // Months are zero-based (0-11), so we add 1
-
-  if (currentMonth <= 9) {
-    currentMonth = "0" + currentMonth;
-  }
-
+  var currentMonth = currentDate.getMonth() + 1;
   var currentDay = currentDate.getDate();
   var currentHour = currentDate.getHours();
   var currentMinute = currentDate.getMinutes();
 
+  if (currentMonth <= 9) {
+    currentMonth = "0" + currentMonth;
+  }
   if (currentMinute < 15) {
     currentMinute = "00";
   } else if (currentMinute < 30) {
@@ -26,10 +24,29 @@ function getTime() {
     currentMinute = "45";
   }
 
+  if (forecast) {
+    var forecastTimes = [];
+    for (i = 1; i <= n; i++) {
+      if (currentHour >= 23) {
+        break;
+      }
+      currentHour++;
+      if (currentHour <= 9) {
+        currentHour = "0" + currentHour;
+      }
+      var forecastTime = `${currentYear}-${currentMonth}-${currentDay}T${currentHour}:${currentMinute}`;
+      forecastTimes.push(forecastTime);
+    }
+    return forecastTimes;
+  }
+  if (currentHour <= 9) {
+    currentHour = "0" + currentHour;
+  }
+
   // Format the date and time as a string
   var currentTime = `${currentYear}-${currentMonth}-${currentDay}T${currentHour}:${currentMinute}`;
 
-  console.log(currentTime); // Output the current time
+  console.log(currentTime);
 
   return currentTime;
 }
@@ -67,10 +84,27 @@ markerBorlänge.on("click", function () {
     .then((data) => {
       var currentTime = getTime();
       var currentIndex = data.minutely_15.time.indexOf(currentTime);
+      var forecastTimes = getTime(true, 5);
+      var forecastIndex = [];
+      var forecastTemp = [];
+
+      for (i = 0; i < forecastTimes.length; i++) {
+        forecastIndex.push(data.minutely_15.time.indexOf(forecastTimes[i]));
+      }
+
+      for (i = 0; i < forecastIndex.length; i++) {
+        forecastTemp.push(data.minutely_15.temperature_2m[forecastIndex[i]]);
+      }
+      var forecastList = "";
+      for (var i = 0; i < forecastTemp.length; i++) {
+        forecastList += `<p>${forecastTimes[i]}: ${forecastTemp[i]}°C</p>`;
+      }
+
       var content = `
                 <h5>Väder Borlänge</h5>
                 <p>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</p>
-				<p>Time: ${data.minutely_15.time[currentIndex]}</p>
+				<p>Current time: ${data.minutely_15.time[currentIndex]}</p>
+				<div>${forecastList}</div>
                 <p>Precipitation: ${data.hourly.precipitation[currentIndex]}mm</p>
                 <p>Sunshine Duration: ${data.minutely_15.sunshine_duration[currentIndex]} seconds</p>
             `;
@@ -94,15 +128,32 @@ markerNY.on("click", function () {
   fetch(weatherApiUrlNY)
     .then((response) => response.json())
     .then((data) => {
-      var currentTime = getTime();
-      var currentIndex = data.minutely_15.time.indexOf(currentTime);
-      var content = `
-                <h5>Väder New York</h5>
-                <p>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</p>
-				<p>Time: ${data.minutely_15.time[currentIndex]}</p>
-                <p>Precipitation: ${data.hourly.precipitation[currentIndex]}mm</p>
-                <p>Sunshine Duration: ${data.minutely_15.sunshine_duration[currentIndex]} seconds</p>
-            `;
+		var currentTime = getTime();
+		var currentIndex = data.minutely_15.time.indexOf(currentTime);
+		var forecastTimes = getTime(true, 5);
+		var forecastIndex = [];
+		var forecastTemp = [];
+  
+		for (i = 0; i < forecastTimes.length; i++) {
+		  forecastIndex.push(data.minutely_15.time.indexOf(forecastTimes[i]));
+		}
+  
+		for (i = 0; i < forecastIndex.length; i++) {
+		  forecastTemp.push(data.minutely_15.temperature_2m[forecastIndex[i]]);
+		}
+		var forecastList = "";
+		for (var i = 0; i < forecastTemp.length; i++) {
+		  forecastList += `<p>${forecastTimes[i]}: ${forecastTemp[i]}°C</p>`;
+		}
+  
+		var content = `
+				  <h5>Väder New York</h5>
+				  <p>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</p>
+				  <p>Current time: ${data.minutely_15.time[currentIndex]}</p>
+				  <div>${forecastList}</div>
+				  <p>Precipitation: ${data.hourly.precipitation[currentIndex]}mm</p>
+				  <p>Sunshine Duration: ${data.minutely_15.sunshine_duration[currentIndex]} seconds</p>
+			  `;
       // Update sidebar and popup content
       document.getElementById("sidebar").innerHTML = content;
       sidebar.show(); // Ensure sidebar is visible
@@ -123,12 +174,29 @@ markerKyoto.on("click", function () {
   fetch(weatherApiUrlKyoto)
     .then((response) => response.json())
     .then((data) => {
-      var currentTime = getTime();
-      var currentIndex = data.minutely_15.time.indexOf(currentTime);
-      var content = `
+		var currentTime = getTime();
+		var currentIndex = data.minutely_15.time.indexOf(currentTime);
+		var forecastTimes = getTime(true, 5);
+		var forecastIndex = [];
+		var forecastTemp = [];
+  
+		for (i = 0; i < forecastTimes.length; i++) {
+		  forecastIndex.push(data.minutely_15.time.indexOf(forecastTimes[i]));
+		}
+  
+		for (i = 0; i < forecastIndex.length; i++) {
+		  forecastTemp.push(data.minutely_15.temperature_2m[forecastIndex[i]]);
+		}
+		var forecastList = "";
+		for (var i = 0; i < forecastTemp.length; i++) {
+		  forecastList += `<p>${forecastTimes[i]}: ${forecastTemp[i]}°C</p>`;
+		}
+  
+		var content = `
 				  <h5>Väder Kyoto</h5>
 				  <p>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</p>
-				  <p>Time: ${data.minutely_15.time[currentIndex]}</p>
+				  <p>Current time: ${data.minutely_15.time[currentIndex]}</p>
+				  <div>${forecastList}</div>
 				  <p>Precipitation: ${data.hourly.precipitation[currentIndex]}mm</p>
 				  <p>Sunshine Duration: ${data.minutely_15.sunshine_duration[currentIndex]} seconds</p>
 			  `;
@@ -152,12 +220,29 @@ markerLondon.on("click", function () {
   fetch(weatherApiUrlLondon)
     .then((response) => response.json())
     .then((data) => {
-      var currentTime = getTime();
-      var currentIndex = data.minutely_15.time.indexOf(currentTime);
-      var content = `
+		var currentTime = getTime();
+		var currentIndex = data.minutely_15.time.indexOf(currentTime);
+		var forecastTimes = getTime(true, 5);
+		var forecastIndex = [];
+		var forecastTemp = [];
+  
+		for (i = 0; i < forecastTimes.length; i++) {
+		  forecastIndex.push(data.minutely_15.time.indexOf(forecastTimes[i]));
+		}
+  
+		for (i = 0; i < forecastIndex.length; i++) {
+		  forecastTemp.push(data.minutely_15.temperature_2m[forecastIndex[i]]);
+		}
+		var forecastList = "";
+		for (var i = 0; i < forecastTemp.length; i++) {
+		  forecastList += `<p>${forecastTimes[i]}: ${forecastTemp[i]}°C</p>`;
+		}
+  
+		var content = `
 				  <h5>Väder London</h5>
 				  <p>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</p>
-				  <p>Time: ${data.minutely_15.time[currentIndex]}</p>
+				  <p>Current time: ${data.minutely_15.time[currentIndex]}</p>
+				  <div>${forecastList}</div>
 				  <p>Precipitation: ${data.hourly.precipitation[currentIndex]}mm</p>
 				  <p>Sunshine Duration: ${data.minutely_15.sunshine_duration[currentIndex]} seconds</p>
 			  `;
@@ -181,15 +266,32 @@ markerRome.on("click", function () {
   fetch(weatherApiUrlRome)
     .then((response) => response.json())
     .then((data) => {
-      var currentTime = getTime();
-      var currentIndex = data.minutely_15.time.indexOf(currentTime);
-      var content = `
-					<h5>Väder Rom</h5>
-					<p>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</p>
-					<p>Time: ${data.minutely_15.time[currentIndex]}</p>
-					<p>Precipitation: ${data.hourly.precipitation[currentIndex]}mm</p>
-					<p>Sunshine Duration: ${data.minutely_15.sunshine_duration[currentIndex]} seconds</p>
-				`;
+		var currentTime = getTime();
+		var currentIndex = data.minutely_15.time.indexOf(currentTime);
+		var forecastTimes = getTime(true, 5);
+		var forecastIndex = [];
+		var forecastTemp = [];
+  
+		for (i = 0; i < forecastTimes.length; i++) {
+		  forecastIndex.push(data.minutely_15.time.indexOf(forecastTimes[i]));
+		}
+  
+		for (i = 0; i < forecastIndex.length; i++) {
+		  forecastTemp.push(data.minutely_15.temperature_2m[forecastIndex[i]]);
+		}
+		var forecastList = "";
+		for (var i = 0; i < forecastTemp.length; i++) {
+		  forecastList += `<p>${forecastTimes[i]}: ${forecastTemp[i]}°C</p>`;
+		}
+  
+		var content = `
+				  <h5>Väder Rome</h5>
+				  <p>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</p>
+				  <p>Current time: ${data.minutely_15.time[currentIndex]}</p>
+				  <div>${forecastList}</div>
+				  <p>Precipitation: ${data.hourly.precipitation[currentIndex]}mm</p>
+				  <p>Sunshine Duration: ${data.minutely_15.sunshine_duration[currentIndex]} seconds</p>
+			  `;
       // Update sidebar and popup content
       document.getElementById("sidebar").innerHTML = content;
       sidebar.show(); // Ensure sidebar is visible
