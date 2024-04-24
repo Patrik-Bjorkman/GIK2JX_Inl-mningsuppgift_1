@@ -110,6 +110,7 @@ btnTask7.addEventListener("click", function () {
     mymap.removeLayer(markerLayer);
   } else {
     callKmeansClustering();
+    mymap.setView([59.406929, 18.07766], 10);
     mymap.addLayer(markerLayer);
   }
 });

@@ -50,7 +50,7 @@ polyPointLeksandsKyrka.on('click', function (e) {
 	sidebar.show();
 });
 
-polyPointStation = L.marker(polyPointStation).bindPopup('Tågstationen');
+polyPointStation = L.marker(polyPointStation).bindPopup('Leksands tågstation');
 
 polyPointStation.on('click', function (e) {
 	document.getElementById('sidebar').innerHTML = `

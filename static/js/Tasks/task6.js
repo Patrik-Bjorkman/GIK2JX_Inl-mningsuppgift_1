@@ -318,6 +318,7 @@ btnTask6.addEventListener("click", function () {
     mymap.removeLayer(markerLondon);
     mymap.removeLayer(markerRome);
   } else {
+	mymap.setView([60.73059328557813, 15.001003359666047], 3);
     mymap.addLayer(markerBorlänge);
     mymap.addLayer(markerNY);
     mymap.addLayer(markerKyoto);
