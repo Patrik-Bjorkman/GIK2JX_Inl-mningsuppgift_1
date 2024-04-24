@@ -55,6 +55,7 @@ var kmeansLoaded = false;
 
 function callKmeansClustering() {
   if (!kmeansLoaded) {
+    kmeansLoaded = true;
     fetch("/api/kmeansClustering")
       .then((response) => response.json())
       .then((data) => {
@@ -96,10 +97,11 @@ function callKmeansClustering() {
           var centerMarker = L.marker(p, { icon: blackIcon });
           markerLayer.addLayer(centerMarker);
         }
-        kmeansLoaded = true;
+        
       })
       .catch((error) => {
         console.error("Error calling Python function:", error);
+        kmeansLoaded = false;
       });
   }
 }
@@ -113,6 +115,7 @@ function callElbowMethod() {
   } else if (elbowLoaded) {
     document.getElementById("result").appendChild(elbowimg);
   } else {
+    elbowLoaded = true;
     fetch("/api/elbowMethod")
       .then((response) => {
         if (!response.ok) {
@@ -125,10 +128,10 @@ function callElbowMethod() {
         elbowimg.src = imgUrl;
         elbowimg.setAttribute("id", "elbowImg");
         document.getElementById("result").appendChild(elbowimg);
-        elbowLoaded = true;
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
+        elbowLoaded = false
       });
   }
 }
