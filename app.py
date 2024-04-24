@@ -1,8 +1,9 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, send_file
 import pandas as pd
 from sklearn.cluster import KMeans
 import json
 import matplotlib.pyplot as plt
+import io
 
 def elbowMethod():
     schoolData = pd.read_csv("./static/school_locations.csv")
@@ -21,7 +22,15 @@ def elbowMethod():
     plt.plot(range(1, 11), sse, '-o')
     plt.xlabel('Number of Clusters (k)')
     plt.ylabel('Sum of Squared Errors (SSE)')
-    plt.show()
+    
+    # Save the plot as a PNG file
+    img_data = io.BytesIO()
+    plt.savefig(img_data, format='png')
+    img_data.seek(0)
+    
+    plt.close()
+    
+    return img_data
 
 def kmeansClustering():
     schoolData = pd.read_csv("./static/school_locations.csv")
@@ -30,7 +39,7 @@ def kmeansClustering():
     names = schoolData['Name'].tolist()
     coord = list(zip(xCoord, yCoord))
 
-    k = 7  
+    k = 7
     kmeans = KMeans(n_clusters=k).fit(coord)
 
     cluster_centers = kmeans.cluster_centers_.tolist()
@@ -58,8 +67,8 @@ def call_python_function():
 
 @app.route('/api/elbowMethod')
 def call_elbow_function():
-    elbowMethod()
-    return
+    img_data = elbowMethod()
+    return send_file(img_data, mimetype='image/png')
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -82,7 +82,7 @@ function callKmeansClustering() {
         } else if (labels[i] == 6) {
           marker = L.marker(p, { icon: pinkIcon });
         } else {
-            marker = L.marker(p)
+          marker = L.marker(p);
         }
         marker.bindPopup(`${names[i]}`);
 
@@ -101,7 +101,27 @@ function callKmeansClustering() {
 }
 
 function callElbowMethod() {
-  fetch("/api/elbowMethod");
+  if (document.getElementById("elbowImg")) {
+    document.getElementById("elbowImg").remove();
+  } else {
+    fetch("/api/elbowMethod")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.blob();
+      })
+      .then((blob) => {
+        const imgUrl = URL.createObjectURL(blob);
+        const img = document.createElement("img");
+        img.src = imgUrl;
+        img.setAttribute("id", "elbowImg");
+        document.getElementById("result").appendChild(img);
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
+      });
+  }
 }
 
 var btnTask7 = document.getElementById("btnTask7");
