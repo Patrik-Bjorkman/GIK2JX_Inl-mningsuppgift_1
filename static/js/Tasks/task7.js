@@ -127,6 +127,7 @@ function callElbowMethod() {
         const imgUrl = URL.createObjectURL(blob);
         elbowimg.src = imgUrl;
         elbowimg.setAttribute("id", "elbowImg");
+        elbowimg.setAttribute("width", "300px");
         document.getElementById("result").appendChild(elbowimg);
       })
       .catch((error) => {
