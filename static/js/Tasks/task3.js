@@ -2,7 +2,7 @@ mymap = window.mymap;
 
 var supermarketLayer = L.geoJSON(supermarket, {
 	onEachFeature: function (feature, layer) {
-		layer.bindPopup(feature.properties.name);
+		layer.bindPopup(`<p class="fs-6">${feature.properties.name}</p>`);
 	},
 });
 
@@ -15,7 +15,7 @@ function createBufferedZones(geojsonData, radius) {
 
 var bufferLayer = L.geoJSON(createBufferedZones(supermarket, 1), {
 	style: function () {
-		return { color: 'grey', weight: 1, opacity: 0.2 };
+		return { color: 'black', weight: 1, opacity: 0.4 };
 	},
 });
 
@@ -47,7 +47,7 @@ function highlightIsolatedSupermarkets() {
 
 	L.geoJSON(isolatedBuffers, {
 		style: function () {
-			return { color: 'blue', weight: 2, opacity: 0.65 }; // Set color for isolated buffers
+			return { color: 'orange', weight: 2 }; // Set color for isolated buffers
 		},
 	}).addTo(mymap);
 }

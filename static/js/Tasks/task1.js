@@ -52,7 +52,7 @@ mymap = window.mymap;
 
 polyPointKupolen = L.marker(polyPointKupolen);
 polyPointKupolen.bindPopup(
-	"<h5>Kupolen</h5><img src='../static/img/kupolen.png'width='300px'><p>Borlänge största köpcentrum, Kupolen! Hit reser folk land och rike runt för att shoppa loss.</p>"
+	"<h5 class='text-center'>Kupolen</h5><img class='rounded' src='../static/img/kupolen.png'width='300px'><p class='fs-6'>Borlänge största köpcentrum, Kupolen! Hit reser folk land och rike runt för att shoppa loss.</p>"
 );
 
 var polyLine = L.polyline(polyLineList, {
@@ -64,7 +64,7 @@ var polyLine = L.polyline(polyLineList, {
 
 var markerA = L.marker(polyLineE);
 markerA.bindPopup(
-	"<h5>Röda vägen</h5><img src='../static/img/roda_vagen.png'width='300px'><p>Röda vägen i Borlänge vid Högskolan Dalarna och Trafikverket, vägen ligger i området Dalarna Science Park</p>"
+	"<h5 class='text-center'>Röda vägen</h5><img class='rounded' src='../static/img/roda_vagen.png'width='300px'><p class='fs-6'>Röda vägen i Borlänge vid Högskolan Dalarna och Trafikverket, vägen ligger i området Dalarna Science Park</p>"
 );
 
 var polygon = L.polygon(
@@ -90,7 +90,7 @@ var polygon = L.polygon(
 
 var polymarker = L.marker(polygonPoint);
 polymarker.bindPopup(
-	"<h5>Börje Anderssons Park</h5><img src='../static/img/borje_anderssons_park.png'width='300px'><p>I Börje Anderssons park hittar du fina grönytor, här kan ni samlas för att njuta av solen eller varje inte grilla tillsammans en fin sommarkväll. När man vill ägna sig åt lite lungare aktiviterer så kan man spela lite boule på den fina bouleplanen.</p>"
+	"<h5 class='text-center'>Börje Anderssons Park</h5><img class='rounded' src='../static/img/borje_anderssons_park.png'width='300px'><p class='fs-6'>I Börje Anderssons park hittar du fina grönytor, här kan ni samlas för att njuta av solen eller varje inte grilla tillsammans en fin sommarkväll. När man vill ägna sig åt lite lungare aktiviterer så kan man spela lite boule på den fina bouleplanen.</p>"
 );
 
 btnTask1 = document.getElementById('btnTask1');

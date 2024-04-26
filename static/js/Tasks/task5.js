@@ -10,7 +10,7 @@ var fuelLayer = L.geoJSON(fuel, {
 				feature.geometry.coordinates[1],
 				feature.geometry.coordinates[0],
 			]);
-			marker.bindPopup(feature.properties.name);
+			marker.bindPopup(`<p class="fs-6">${feature.properties.name}</p>`);
 			markers.addLayer(marker);
 		}
 	},
