@@ -23,7 +23,6 @@ def elbowMethod():
     plt.xlabel('Number of Clusters (k)')
     plt.ylabel('Sum of Squared Errors (SSE)')
     
-    # Save the plot as a PNG file
     img_data = io.BytesIO()
     plt.savefig(img_data, format='png')
     img_data.seek(0)
