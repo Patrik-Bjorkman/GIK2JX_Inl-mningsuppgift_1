@@ -1,5 +1,4 @@
 var mymap;
-var lyrOSM;
 
 var polyPointKupolen = [60.484235085475206, 15.417972001328266];
 
