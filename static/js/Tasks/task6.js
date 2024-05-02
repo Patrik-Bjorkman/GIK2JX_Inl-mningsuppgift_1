@@ -45,7 +45,6 @@ function getTime(forecast, n) {
 	}
 
 	var currentTime = `${currentYear}-${currentMonth}-${currentDay}T${currentHour}:${currentMinute}`;
-	console.log(currentTime)
 
 	return currentTime;
 }
@@ -111,7 +110,8 @@ markerBorlänge.on('click', function () {
 
 			document.getElementById('sidebar').innerHTML = content;
 			sidebar.show();
-			markerBorlänge.setPopupContent(content);
+			markerBorlänge.bindPopup(`<h5 class="text-center">Weather Borlänge</h5>
+			<p><strong>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</strong></p>`);
 			markerBorlänge.openPopup();
 		})
 		.catch((error) => {
@@ -163,7 +163,8 @@ markerNY.on('click', function () {
 
 			document.getElementById('sidebar').innerHTML = content;
 			sidebar.show();
-			markerNY.setPopupContent(content);
+			markerNY.bindPopup(`<h5 class="text-center">Weather New York</h5>
+			<p><strong>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</strong></p>`);
 			markerNY.openPopup();
 		})
 		.catch((error) => {
@@ -215,7 +216,8 @@ markerKyoto.on('click', function () {
 
 			document.getElementById('sidebar').innerHTML = content;
 			sidebar.show();
-			markerKyoto.setPopupContent(content);
+			markerKyoto.bindPopup(`<h5 class="text-center">Weather Kyoto</h5>
+			<p><strong>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</strong></p>`);
 			markerKyoto.openPopup();
 		})
 		.catch((error) => {
@@ -267,7 +269,8 @@ markerLondon.on('click', function () {
 
 			document.getElementById('sidebar').innerHTML = content;
 			sidebar.show();
-			markerLondon.setPopupContent(content);
+			markerLondon.bindPopup(`<h5 class="text-center">Weather London</h5>
+			<p><strong>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</strong></p>`);
 			markerLondon.openPopup();
 		})
 		.catch((error) => {
@@ -319,7 +322,8 @@ markerRome.on('click', function () {
 
 			document.getElementById('sidebar').innerHTML = content;
 			sidebar.show();
-			markerRome.setPopupContent(content);
+			markerRome.bindPopup(`<h5 class="text-center">Weather Rome</h5>
+			<p><strong>Temperature: ${data.minutely_15.temperature_2m[currentIndex]}°C</strong></p>`);
 			markerRome.openPopup();
 		})
 		.catch((error) => {

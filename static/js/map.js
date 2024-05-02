@@ -9,13 +9,12 @@ mymap.addLayer(lyrOSM);
 var sidebar = L.control.sidebar('sidebar', { position: 'left' });
 mymap.addControl(sidebar);
 
-// Initialize the PolylineMeasure control
 var polylineMeasure = L.control.polylineMeasure({
-    position: 'topleft', // Adjust the position as needed
-    showBearings: true, // Show bearings
-    clearMeasurementsOnStop: false, // Don't clear measurements on stop
-    showClearControl: true, // Show clear control button
-    showUnitControl: true // Show unit control button
+	position: 'topleft',
+	showBearings: true,
+	clearMeasurementsOnStop: false,
+	showClearControl: true,
+	showUnitControl: true,
 });
 polylineMeasure.addTo(mymap);
 

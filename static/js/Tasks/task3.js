@@ -42,12 +42,11 @@ function checkIsolation(geojsonData, bufferRadius) {
 }
 
 function highlightIsolatedSupermarkets() {
-	var isolatedSupermarkets = checkIsolation(supermarket, 1); // Assuming 1 km buffer
-	var isolatedBuffers = createBufferedZones(isolatedSupermarkets, 1); // Create buffers for isolated supermarkets
-
+	var isolatedSupermarkets = checkIsolation(supermarket, 1);
+	var isolatedBuffers = createBufferedZones(isolatedSupermarkets, 1);
 	L.geoJSON(isolatedBuffers, {
 		style: function () {
-			return { color: 'orange', weight: 2 }; // Set color for isolated buffers
+			return { color: 'orange', weight: 2 };
 		},
 	}).addTo(mymap);
 }
