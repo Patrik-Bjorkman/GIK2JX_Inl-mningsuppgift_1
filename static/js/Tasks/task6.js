@@ -12,6 +12,9 @@ function getTime(forecast, n) {
 	if (currentMonth <= 9) {
 		currentMonth = '0' + currentMonth;
 	}
+	if (currentDay <= 9) {
+		currentDay = '0' + currentDay;
+	}
 	if (currentMinute < 15) {
 		currentMinute = '00';
 	} else if (currentMinute < 30) {
@@ -42,6 +45,7 @@ function getTime(forecast, n) {
 	}
 
 	var currentTime = `${currentYear}-${currentMonth}-${currentDay}T${currentHour}:${currentMinute}`;
+	console.log(currentTime)
 
 	return currentTime;
 }
