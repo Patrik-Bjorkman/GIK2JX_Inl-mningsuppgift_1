@@ -8,8 +8,6 @@ var polyPointStation = [60.733842043855304, 15.002288587135828];
 
 var points = [polyPointJapPark, polyPointTegera, polyPointHildaholm, polyPointLeksandsKyrka, polyPointStation];
 
-var dasd = polylineMeasure.seed([points])
-
 polyPointJapPark = L.marker(polyPointJapPark).bindPopup(
 	'<p class="fs-6">Japanska parken</p>'
 );
@@ -81,7 +79,7 @@ btnTask2.addEventListener('click', function () {
 		mymap.removeLayer(polyPointHildaholm);
 		mymap.removeLayer(polyPointLeksandsKyrka);
 		mymap.removeLayer(polyPointStation);
-		mymap.removeLayer(dasd);
+		polylineMeasure._clearAllMeasurements()
 	} else {
 		mymap.setView([60.73059328557813, 15.001003359666047], 13);
 		polyPointJapPark.addTo(mymap);
@@ -89,7 +87,6 @@ btnTask2.addEventListener('click', function () {
 		polyPointHildaholm.addTo(mymap);
 		polyPointLeksandsKyrka.addTo(mymap);
 		polyPointStation.addTo(mymap);
-		dasd.addTo(mymap)
-		
+		polylineMeasure.seed([points])
 	}
 });
